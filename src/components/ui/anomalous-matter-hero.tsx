@@ -1,6 +1,66 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
+/* ─── Animated liquid floor ─────────────────────────────────────── */
+const FLOOR_VERT = `
+  uniform float uTime;
+  varying float vElevation;
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    vec3 p = position;
+    p.y += sin(p.x * 1.4 + uTime * 0.85) * cos(p.z * 1.1 + uTime * 0.65) * 0.30;
+    p.y += sin(p.x * 0.65 - uTime * 0.50) * sin(p.z * 1.9 + uTime * 0.75) * 0.20;
+    p.y += cos(p.x * 2.2 + uTime * 1.15) * cos(p.z * 0.85 - uTime * 0.40) * 0.12;
+    vElevation = p.y;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+  }
+`
+const FLOOR_FRAG = `
+  uniform float uTime;
+  varying float vElevation;
+  varying vec2 vUv;
+  void main() {
+    float t = clamp((vElevation + 0.62) / 1.24, 0.0, 1.0);
+    vec3 deep  = vec3(0.04, 0.01, 0.15);
+    vec3 mid   = vec3(0.18, 0.06, 0.55);
+    vec3 crest = vec3(0.50, 0.18, 0.95);
+    vec3 col = mix(deep, mid, t);
+    col = mix(col, crest, t * t * 0.65);
+    float s = sin(vUv.x * 48.0 + uTime * 2.2) * sin(vUv.y * 38.0 - uTime * 1.7) * 0.022;
+    col += s;
+    gl_FragColor = vec4(col, 0.86);
+  }
+`
+
+/* ─── GPU-driven swirling energy particles ───────────────────────── */
+const PARTICLE_VERT = `
+  attribute float aSpeed;
+  attribute float aSize;
+  attribute float aOffset;
+  attribute vec3  aColor;
+  uniform   float uTime;
+  varying   vec3  vColor;
+  void main() {
+    vColor = aColor;
+    float angle  = atan(position.z, position.x) + uTime * aSpeed * 0.28;
+    float radius = length(position.xz) + sin(uTime * aSpeed * 0.55 + aOffset * 6.28) * 0.28;
+    float y      = mod(position.y - uTime * aSpeed * 0.35 + aOffset * 12.0, 18.0) - 9.0;
+    vec3 pos     = vec3(cos(angle) * radius, y, sin(angle) * radius);
+    vec4 mv      = modelViewMatrix * vec4(pos, 1.0);
+    gl_PointSize = aSize * (270.0 / -mv.z);
+    gl_Position  = projectionMatrix * mv;
+  }
+`
+const PARTICLE_FRAG = `
+  varying vec3 vColor;
+  void main() {
+    float d = length(gl_PointCoord - vec2(0.5));
+    if (d > 0.5) discard;
+    gl_FragColor = vec4(vColor, (0.5 - d) * 1.25 * 0.65);
+  }
+`
+
 function ThreeScene({ className }: { className?: string }) {
   const mountRef = useRef<HTMLDivElement>(null)
 
@@ -9,177 +69,182 @@ function ThreeScene({ className }: { className?: string }) {
     if (!mount) return
 
     const isMobile = window.innerWidth < 768
-    const width = mount.clientWidth
-    const height = mount.clientHeight
+    const W = mount.clientWidth
+    const H = mount.clientHeight
 
-    const scene = new THREE.Scene()
-    scene.fog = new THREE.FogExp2(0x050010, 0.035)
-
-    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100)
-    camera.position.set(0, 0, isMobile ? 14 : 12)
-
+    /* ── Renderer ── */
     const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true })
-    renderer.setSize(width, height)
+    renderer.setSize(W, H)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2))
     renderer.setClearColor(0x000000, 0)
     mount.appendChild(renderer.domElement)
 
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0x1a0040, 3)
-    scene.add(ambientLight)
+    /* ── Scene ── */
+    const scene = new THREE.Scene()
+    scene.fog = new THREE.FogExp2(0x060014, 0.030)
 
-    const purpleLight = new THREE.PointLight(0x7B2FBE, 20, 28)
-    purpleLight.position.set(-4, 3, 2)
+    /* ── Camera — slightly elevated, tilted down to reveal floor ── */
+    const camera = new THREE.PerspectiveCamera(55, W / H, 0.1, 100)
+    camera.position.set(0, 2, isMobile ? 16 : 13)
+    camera.lookAt(0, -1, 0)
+
+    /* ── Lights ── */
+    scene.add(new THREE.AmbientLight(0x180040, 4))
+
+    const purpleLight = new THREE.PointLight(0x8B35D6, 28, 32)
+    purpleLight.position.set(-3, 4, 2)
     scene.add(purpleLight)
 
-    const blueLight = new THREE.PointLight(0x2F5FBE, 18, 24)
-    blueLight.position.set(4, -2, 3)
+    const blueLight = new THREE.PointLight(0x3055CC, 22, 28)
+    blueLight.position.set(4, -1, 3)
     scene.add(blueLight)
 
-    const pinkLight = new THREE.PointLight(0xBE2F8B, 12, 18)
-    pinkLight.position.set(0, 5, -3)
-    scene.add(pinkLight)
+    const rimLight = new THREE.PointLight(0xCC3090, 16, 22)
+    rimLight.position.set(0, 6, -4)
+    scene.add(rimLight)
 
-    // Rocky asteroids
-    const asteroidData: {
-      mesh: THREE.Mesh
-      rotX: number; rotY: number; rotZ: number
-      orbitSpeed: number; orbitRadius: number; orbitOffset: number; orbitTilt: number
-    }[] = []
+    /* ── Liquid floor ── */
+    const floorSegs = isMobile ? 35 : 60
+    const floorGeo = new THREE.PlaneGeometry(40, 40, floorSegs, floorSegs)
+    floorGeo.rotateX(-Math.PI / 2)
+    const floorUni = { uTime: { value: 0 } }
+    const floorMat = new THREE.ShaderMaterial({
+      vertexShader: FLOOR_VERT,
+      fragmentShader: FLOOR_FRAG,
+      uniforms: floorUni,
+      transparent: true,
+      side: THREE.DoubleSide,
+    })
+    const floor = new THREE.Mesh(floorGeo, floorMat)
+    floor.position.y = -4
+    scene.add(floor)
 
-    const asteroidColors = [
-      0x6B2FBE, 0x4B2FCE, 0x8B3FDE, 0x3B5FAE, 0x9B4FBE, 0x5B3FAE, 0x7B5FFF, 0x3B3FBE,
+    /* ── Falling meteor stones ── */
+    const stoneColors = [
+      0x6B2FBE, 0x4B2FCE, 0x8B3FDE, 0x3B5FAE,
+      0x9B4FBE, 0x5B3FAE, 0x7B5FFF, 0x2B3FAE,
     ]
+    const stoneCount = isMobile ? 10 : 18
 
-    const count = isMobile ? 9 : 16
+    type StoneData = {
+      mesh: THREE.Mesh
+      rx: number; ry: number; rz: number
+      fallSpeed: number
+      yReset: number
+    }
+    const stones: StoneData[] = []
 
-    for (let i = 0; i < count; i++) {
-      const detail = Math.floor(Math.random() * 2)
-      const size = 0.2 + Math.random() * 0.75
-      const geo = Math.random() > 0.5
-        ? new THREE.IcosahedronGeometry(size, detail)
-        : new THREE.DodecahedronGeometry(size, detail)
+    for (let i = 0; i < stoneCount; i++) {
+      // Unique geometry per stone (detail 0 = 12 verts, very low-poly rocky)
+      const detail = i % 3 === 0 ? 1 : 0
+      const geo = i % 2 === 0
+        ? new THREE.IcosahedronGeometry(1, detail)
+        : new THREE.DodecahedronGeometry(1, detail)
 
-      // Displace vertices for a rocky, lumpy look
-      const posAttr = geo.attributes.position as THREE.BufferAttribute
-      for (let j = 0; j < posAttr.count; j++) {
-        const x = posAttr.getX(j)
-        const y = posAttr.getY(j)
-        const z = posAttr.getZ(j)
+      // Displace vertices for lumpy rock appearance
+      const pa = geo.attributes.position as THREE.BufferAttribute
+      for (let j = 0; j < pa.count; j++) {
+        const x = pa.getX(j), y = pa.getY(j), z = pa.getZ(j)
         const len = Math.sqrt(x * x + y * y + z * z) || 1
-        const factor = 0.75 + Math.random() * 0.5
-        posAttr.setXYZ(j, (x / len) * size * factor, (y / len) * size * factor, (z / len) * size * factor)
+        const f = 0.72 + Math.random() * 0.56
+        pa.setXYZ(j, (x / len) * f, (y / len) * f, (z / len) * f)
       }
       geo.computeVertexNormals()
 
-      const color = asteroidColors[Math.floor(Math.random() * asteroidColors.length)]
+      const scale = 0.12 + Math.random() * 0.50
       const mat = new THREE.MeshStandardMaterial({
-        color,
-        roughness: 0.9,
-        metalness: 0.25,
+        color: stoneColors[i % stoneColors.length],
+        roughness: 0.88,
+        metalness: 0.18,
         transparent: true,
-        opacity: 0.65 + Math.random() * 0.35,
+        opacity: 0.72 + Math.random() * 0.28,
       })
-
       const mesh = new THREE.Mesh(geo, mat)
-      const orbitRadius = 2.5 + Math.random() * 5.5
-      const orbitOffset = Math.random() * Math.PI * 2
-      const orbitTilt = (Math.random() - 0.5) * Math.PI * 0.7
+      mesh.scale.setScalar(scale)
 
-      mesh.position.set(
-        Math.cos(orbitOffset) * orbitRadius,
-        Math.sin(orbitOffset) * orbitRadius * 0.4,
-        (Math.random() - 0.5) * 6
+      // Spread across a wide area so it looks like a meteor shower curtain
+      const x = (Math.random() - 0.5) * 20
+      const y = (Math.random() - 0.5) * 13
+      const z = (Math.random() - 0.5) * 7 - 1
+      mesh.position.set(x, y, z)
+      mesh.rotation.set(
+        Math.random() * Math.PI * 2,
+        Math.random() * Math.PI * 2,
+        Math.random() * Math.PI * 2
       )
-
       scene.add(mesh)
-      asteroidData.push({
+
+      stones.push({
         mesh,
-        rotX: (Math.random() - 0.5) * 0.025,
-        rotY: (Math.random() - 0.5) * 0.035,
-        rotZ: (Math.random() - 0.5) * 0.015,
-        orbitSpeed: 0.08 + Math.random() * 0.18,
-        orbitRadius,
-        orbitOffset,
-        orbitTilt,
+        rx: (Math.random() - 0.5) * 0.028,
+        ry: (Math.random() - 0.5) * 0.038,
+        rz: (Math.random() - 0.5) * 0.018,
+        fallSpeed: 0.007 + Math.random() * 0.018,
+        yReset: 6.5 + Math.random() * 3.5,
       })
     }
 
-    // Swirling energy particles
-    const particleCount = isMobile ? 500 : 1000
-    const particleGeo = new THREE.BufferGeometry()
-    const positions = new Float32Array(particleCount * 3)
-    const pColors = new Float32Array(particleCount * 3)
+    /* ── GPU-driven energy particle swirl ── */
+    const pCount = isMobile ? 500 : 900
+    const pPos     = new Float32Array(pCount * 3)
+    const pSpeeds  = new Float32Array(pCount)
+    const pSizes   = new Float32Array(pCount)
+    const pOffsets = new Float32Array(pCount)
+    const pColors  = new Float32Array(pCount * 3)
 
-    const pColorOptions = [
-      new THREE.Color(0x7B2FBE),
-      new THREE.Color(0x2F5FBE),
-      new THREE.Color(0xBE2F8B),
-      new THREE.Color(0x4B7FFF),
-      new THREE.Color(0xA04FFF),
-      new THREE.Color(0x5F2FBE),
+    const palette = [
+      new THREE.Color(0x7B2FBE), new THREE.Color(0x2F5FBE),
+      new THREE.Color(0xBE2F8B), new THREE.Color(0x4B7FFF),
+      new THREE.Color(0xA04FFF), new THREE.Color(0x5F2FCE),
     ]
 
-    const pData: { angle: number; radius: number; speed: number; y: number; ySpeed: number }[] = []
-
-    for (let i = 0; i < particleCount; i++) {
-      const radius = 1.5 + Math.random() * 7.5
-      const angle = Math.random() * Math.PI * 2
-      const y = (Math.random() - 0.5) * 12
-
-      positions[i * 3] = Math.cos(angle) * radius
-      positions[i * 3 + 1] = y
-      positions[i * 3 + 2] = Math.sin(angle) * radius
-
-      const c = pColorOptions[Math.floor(Math.random() * pColorOptions.length)]
-      pColors[i * 3] = c.r
-      pColors[i * 3 + 1] = c.g
-      pColors[i * 3 + 2] = c.b
-
-      pData.push({
-        angle,
-        radius,
-        speed: (0.04 + Math.random() * 0.14) * (Math.random() > 0.5 ? 1 : -1),
-        y,
-        ySpeed: (Math.random() - 0.5) * 0.012,
-      })
+    for (let i = 0; i < pCount; i++) {
+      const r = 1.5 + Math.random() * 7.5
+      const a = Math.random() * Math.PI * 2
+      pPos[i * 3]     = Math.cos(a) * r
+      pPos[i * 3 + 1] = (Math.random() - 0.5) * 14
+      pPos[i * 3 + 2] = Math.sin(a) * r
+      pSpeeds[i]      = 0.04 + Math.random() * 0.12
+      pSizes[i]       = 0.75 + Math.random() * 1.5
+      pOffsets[i]     = Math.random()
+      const c = palette[Math.floor(Math.random() * palette.length)]
+      pColors[i * 3] = c.r; pColors[i * 3 + 1] = c.g; pColors[i * 3 + 2] = c.b
     }
 
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    particleGeo.setAttribute('color', new THREE.BufferAttribute(pColors, 3))
+    const pGeo = new THREE.BufferGeometry()
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3))
+    pGeo.setAttribute('aSpeed',   new THREE.BufferAttribute(pSpeeds, 1))
+    pGeo.setAttribute('aSize',    new THREE.BufferAttribute(pSizes, 1))
+    pGeo.setAttribute('aOffset',  new THREE.BufferAttribute(pOffsets, 1))
+    pGeo.setAttribute('aColor',   new THREE.BufferAttribute(pColors, 3))
 
-    const particleMat = new THREE.PointsMaterial({
-      size: isMobile ? 0.06 : 0.05,
-      vertexColors: true,
+    const pUni = { uTime: { value: 0 } }
+    const pMat = new THREE.ShaderMaterial({
+      vertexShader: PARTICLE_VERT,
+      fragmentShader: PARTICLE_FRAG,
+      uniforms: pUni,
       transparent: true,
-      opacity: 0.55,
-      sizeAttenuation: true,
+      depthWrite: false,
     })
+    scene.add(new THREE.Points(pGeo, pMat))
 
-    const particles = new THREE.Points(particleGeo, particleMat)
-    scene.add(particles)
-
-    // Soft central atmospheric glow
-    const glowGeo = new THREE.SphereGeometry(2, 16, 16)
-    const glowMat = new THREE.MeshBasicMaterial({ color: 0x5B2FBE, transparent: true, opacity: 0.06 })
-    scene.add(new THREE.Mesh(glowGeo, glowMat))
-
-    // Mouse / touch tracking
+    /* ── Mouse / touch parallax ── */
     const mouse = { x: 0, y: 0 }
-    const onMouseMove = (e: MouseEvent) => {
-      const rect = mount.getBoundingClientRect()
-      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
-      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
+    const onMouse = (e: MouseEvent) => {
+      const r = mount.getBoundingClientRect()
+      mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1
+      mouse.y = -((e.clientY - r.top) / r.height) * 2 + 1
     }
-    const onTouchMove = (e: TouchEvent) => {
+    const onTouch = (e: TouchEvent) => {
       if (!e.touches[0]) return
-      const rect = mount.getBoundingClientRect()
-      mouse.x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1
-      mouse.y = -((e.touches[0].clientY - rect.top) / rect.height) * 2 + 1
+      const r = mount.getBoundingClientRect()
+      mouse.x = ((e.touches[0].clientX - r.left) / r.width) * 2 - 1
+      mouse.y = -((e.touches[0].clientY - r.top) / r.height) * 2 + 1
     }
-    window.addEventListener('mousemove', onMouseMove)
-    window.addEventListener('touchmove', onTouchMove, { passive: true })
+    window.addEventListener('mousemove', onMouse)
+    window.addEventListener('touchmove', onTouch, { passive: true })
 
+    /* ── Animation loop ── */
     let animId: number
     const clock = new THREE.Clock()
 
@@ -187,51 +252,46 @@ function ThreeScene({ className }: { className?: string }) {
       animId = requestAnimationFrame(animate)
       const t = clock.getElapsedTime()
 
-      // Orbit & spin asteroids
-      asteroidData.forEach((d, i) => {
-        d.orbitOffset += d.orbitSpeed * 0.004
-        d.mesh.position.x = Math.cos(d.orbitOffset) * d.orbitRadius
-        d.mesh.position.y = Math.sin(d.orbitOffset + d.orbitTilt) * d.orbitRadius * 0.35 + Math.sin(t * 0.25 + i) * 0.25
-        d.mesh.rotation.x += d.rotX
-        d.mesh.rotation.y += d.rotY
-        d.mesh.rotation.z += d.rotZ
-      })
+      // Shader uniforms — GPU handles the rest (zero JS particle updates)
+      floorUni.uTime.value = t
+      pUni.uTime.value = t
 
-      // Swirl particles
-      const posAttr = particleGeo.attributes.position as THREE.BufferAttribute
-      for (let i = 0; i < particleCount; i++) {
-        const d = pData[i]
-        d.angle += d.speed * 0.012
-        d.y += d.ySpeed
-        if (d.y > 6) d.ySpeed = -Math.abs(d.ySpeed)
-        if (d.y < -6) d.ySpeed = Math.abs(d.ySpeed)
-        posAttr.setXYZ(i, Math.cos(d.angle) * d.radius, d.y, Math.sin(d.angle) * d.radius)
+      // Meteor stones fall + rotate
+      for (const d of stones) {
+        d.mesh.position.y -= d.fallSpeed
+        if (d.mesh.position.y < -5) {
+          // Reset above viewport, random x so they don't bunch up
+          d.mesh.position.y = d.yReset
+          d.mesh.position.x = (Math.random() - 0.5) * 20
+        }
+        d.mesh.rotation.x += d.rx
+        d.mesh.rotation.y += d.ry
+        d.mesh.rotation.z += d.rz
       }
-      posAttr.needsUpdate = true
 
-      // Pulse lights
-      purpleLight.intensity = 16 + Math.sin(t * 0.7) * 6
-      blueLight.intensity = 14 + Math.cos(t * 0.55) * 5
+      // Pulsing lights
+      purpleLight.intensity = 22 + Math.sin(t * 0.72) * 8
+      blueLight.intensity   = 18 + Math.cos(t * 0.54) * 6
 
       // Mouse-driven light parallax
-      purpleLight.position.x += (mouse.x * 5 - purpleLight.position.x) * 0.05
-      purpleLight.position.y += (mouse.y * 3 - purpleLight.position.y) * 0.05
-      blueLight.position.x += (-mouse.x * 4 - blueLight.position.x) * 0.04
-      blueLight.position.y += (-mouse.y * 3 - blueLight.position.y) * 0.04
+      purpleLight.position.x += (mouse.x * 5 - purpleLight.position.x) * 0.04
+      purpleLight.position.y += (mouse.y * 3 - purpleLight.position.y) * 0.04
+      blueLight.position.x   += (-mouse.x * 4 - blueLight.position.x) * 0.04
+      blueLight.position.y   += (-mouse.y * 2 - blueLight.position.y) * 0.04
 
-      // Gentle camera drift
-      camera.position.x += (mouse.x * 0.6 - camera.position.x) * 0.018
-      camera.position.y += (mouse.y * 0.4 - camera.position.y) * 0.018
-      camera.lookAt(0, 0, 0)
+      // Gentle camera drift on mouse
+      camera.position.x += (mouse.x * 0.5 - camera.position.x) * 0.015
+      camera.position.y += (mouse.y * 0.35 + 2 - camera.position.y) * 0.015
+      camera.lookAt(0, -1, 0)
 
       renderer.render(scene, camera)
     }
     animate()
 
+    /* ── Resize ── */
     const onResize = () => {
       if (!mount) return
-      const w = mount.clientWidth
-      const h = mount.clientHeight
+      const w = mount.clientWidth, h = mount.clientHeight
       camera.aspect = w / h
       camera.updateProjectionMatrix()
       renderer.setSize(w, h)
@@ -240,18 +300,18 @@ function ThreeScene({ className }: { className?: string }) {
 
     return () => {
       cancelAnimationFrame(animId)
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('mousemove', onMouse)
+      window.removeEventListener('touchmove', onTouch)
       window.removeEventListener('resize', onResize)
       renderer.dispose()
-      particleGeo.dispose()
-      particleMat.dispose()
-      glowGeo.dispose()
-      glowMat.dispose()
-      asteroidData.forEach(d => {
+      floorGeo.dispose()
+      floorMat.dispose()
+      pGeo.dispose()
+      pMat.dispose()
+      for (const d of stones) {
         d.mesh.geometry.dispose()
         ;(d.mesh.material as THREE.Material).dispose()
-      })
+      }
       if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement)
     }
   }, [])

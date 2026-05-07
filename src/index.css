@@ -67,7 +67,13 @@ select:-webkit-autofill {
   position: absolute;
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   filter: blur(90px);
-  will-change: transform, border-radius;
+  /* filter included so the browser promotes it to its own compositor layer */
+  will-change: transform, border-radius, filter;
+  contain: layout style;
+}
+@media (max-width: 767px) {
+  /* Reduce blur cost on low-powered mobile GPUs */
+  .liquid-blob { filter: blur(50px); }
 }
 
 .liquid-blob-1 {

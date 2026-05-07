@@ -15,8 +15,8 @@ export default function Hero() {
       {/* Dot grid */}
       <div className="absolute inset-0 dot-pattern" />
 
-      {/* Radial scrim so text stays readable over the asteroid scene */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_50%_50%,rgba(6,0,26,0.72)_0%,transparent_100%)] pointer-events-none" />
+      {/* Central scrim keeps text readable; outer edge is transparent so the scene shows */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_45%,rgba(6,0,26,0.68)_0%,rgba(6,0,26,0.25)_60%,transparent_100%)] pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-8 pt-24 pb-16 md:pt-28 md:pb-20 text-center">
