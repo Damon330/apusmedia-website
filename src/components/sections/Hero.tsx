@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { LiquidButton } from '@/components/ui/liquid-glass-button'
 
 const trustItems = ['10+ Brands Served', '★★★★★ Rated', '4 Years Experience', '100% Satisfaction']
 
@@ -10,12 +11,12 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden bg-black">
 
-      {/* Background photo — object-position keeps the man on the right */}
+      {/* Background photo — man is right-side, city left; anchor to right */}
       <img
         src="/hero-bg.jpg"
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover object-[70%_center] md:object-[65%_center]"
+        className="absolute inset-0 w-full h-full object-cover object-right"
       />
 
       {/* Left-to-right gradient so text stays readable */}
@@ -74,12 +75,9 @@ export default function Hero() {
             transition={{ duration: 0.65, delay: 0.24 }}
             className="flex flex-wrap items-center gap-4 mb-12 md:mb-16"
           >
-            <button
-              onClick={() => navigate('/assessment')}
-              className="bg-white text-black font-bold text-sm px-7 py-3.5 rounded-full hover:bg-white/90 active:scale-[0.98] transition-all duration-150 min-h-[48px]"
-            >
+            <LiquidButton size="lg" onClick={() => navigate('/assessment')}>
               Take the Free Assessment
-            </button>
+            </LiquidButton>
             <button
               onClick={() => document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })}
               className="flex items-center gap-2 text-white/65 hover:text-white active:text-white text-sm font-medium transition-colors py-2 min-h-[48px]"
