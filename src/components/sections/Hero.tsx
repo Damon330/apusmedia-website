@@ -1,96 +1,110 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { LiquidButton } from '@/components/ui/liquid-glass-button'
 import { ArrowRight } from 'lucide-react'
-import AnomalousMatterHero from '@/components/ui/anomalous-matter-hero'
+
+const trustItems = ['10+ Brands Served', '★★★★★ Rated', '4 Years Experience', '100% Satisfaction']
 
 export default function Hero() {
   const navigate = useNavigate()
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#06001a]">
-      {/* Three.js sphere — centered */}
-      <AnomalousMatterHero />
+    <section className="relative min-h-screen overflow-hidden bg-black">
 
-      {/* Dot grid */}
-      <div className="absolute inset-0 dot-pattern" />
+      {/* Background photo — object-position keeps the man on the right */}
+      <img
+        src="/hero-bg.jpg"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover object-[70%_center] md:object-[65%_center]"
+      />
 
-      {/* Central scrim keeps text readable; outer edge is transparent so the scene shows */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_45%,rgba(6,0,26,0.68)_0%,rgba(6,0,26,0.25)_60%,transparent_100%)] pointer-events-none" />
+      {/* Left-to-right gradient so text stays readable */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#000_25%,rgba(0,0,0,0.70)_50%,rgba(0,0,0,0.25)_70%,transparent_90%)]" />
 
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-8 pt-24 pb-16 md:pt-28 md:pb-20 text-center">
+      {/* Top vignette */}
+      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
 
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 bg-white/8 border border-white/15 rounded-full px-4 py-1.5 text-xs text-white/70 mb-8 md:mb-10 backdrop-blur-sm"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse flex-shrink-0" />
-          Web Design · Branding · Growth
-        </motion.div>
+      {/* Bottom vignette */}
+      <div className="absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t from-black to-transparent pointer-events-none" />
 
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-display font-extrabold text-white text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-[1.05] tracking-tight mb-6 md:mb-7"
-          style={{ textShadow: '0 2px 40px rgba(0,0,0,0.9), 0 0 80px rgba(0,0,0,0.6)' }}
-        >
-          Creating Digital
-          <br />
-          <span className="text-white/80">Masterpieces</span>
-        </motion.h1>
+      {/* Content — left-aligned */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 flex flex-col justify-center min-h-screen pt-20 pb-12">
+        <div className="max-w-[520px] md:max-w-[580px]">
 
-        {/* Sub */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-white/65 text-base md:text-xl max-w-lg mx-auto mb-10 md:mb-12 leading-relaxed px-2"
-          style={{ textShadow: '0 1px 20px rgba(0,0,0,0.8)' }}
-        >
-          We bridge the gap between visibility and profitability — helping brands convert influence into real, measurable business growth.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5"
-        >
-          <LiquidButton size="lg" onClick={() => navigate('/assessment')}>
-            Take the Free Assessment
-          </LiquidButton>
-
-          <button
-            onClick={() => document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })}
-            className="flex items-center gap-2 text-white/60 hover:text-white active:text-white text-sm font-medium transition-colors py-2"
-            style={{ textShadow: '0 1px 10px rgba(0,0,0,0.8)' }}
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2 mb-7 md:mb-9"
           >
-            See Our Work <ArrowRight size={14} />
-          </button>
-        </motion.div>
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse flex-shrink-0" />
+            <span className="text-xs text-white/65 font-medium tracking-wide">
+              Web Design · Branding · Growth
+            </span>
+          </motion.div>
 
-        {/* Trust strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-12 md:mt-16 text-white/35 text-xs"
-        >
-          {['10+ Brands Served', '★★★★★ Rated', '4 Years Experience', '100% Satisfaction'].map(item => (
-            <span key={item}>{item}</span>
-          ))}
-        </motion.div>
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.08 }}
+            className="font-display font-extrabold text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.02] tracking-tight mb-6"
+          >
+            Creating Digital
+            <br />
+            Masterpieces
+          </motion.h1>
+
+          {/* Sub */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.16 }}
+            className="text-white/60 text-base md:text-lg leading-relaxed mb-10 md:mb-12"
+          >
+            We bridge the gap between visibility and profitability — helping brands
+            convert influence into real, measurable business growth.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.24 }}
+            className="flex flex-wrap items-center gap-4 mb-12 md:mb-16"
+          >
+            <button
+              onClick={() => navigate('/assessment')}
+              className="bg-white text-black font-bold text-sm px-7 py-3.5 rounded-full hover:bg-white/90 active:scale-[0.98] transition-all duration-150 min-h-[48px]"
+            >
+              Take the Free Assessment
+            </button>
+            <button
+              onClick={() => document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })}
+              className="flex items-center gap-2 text-white/65 hover:text-white active:text-white text-sm font-medium transition-colors py-2 min-h-[48px]"
+            >
+              See Our Work <ArrowRight size={14} />
+            </button>
+          </motion.div>
+
+          {/* Trust strip — items separated by | */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.38 }}
+            className="flex flex-wrap items-center gap-x-3 gap-y-2 text-white/40 text-xs"
+          >
+            {trustItems.map((item, i) => (
+              <span key={item} className="flex items-center gap-3">
+                {i > 0 && <span className="text-white/20 select-none">|</span>}
+                {item}
+              </span>
+            ))}
+          </motion.div>
+
+        </div>
       </div>
-
-      {/* Bottom fade to black */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 md:h-40 bg-gradient-to-t from-black to-transparent pointer-events-none" />
     </section>
   )
 }
