@@ -8,15 +8,15 @@ export default function Hero() {
   const navigate = useNavigate()
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-black">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#06001a]">
       {/* Three.js sphere — centered */}
       <AnomalousMatterHero />
 
       {/* Dot grid */}
       <div className="absolute inset-0 dot-pattern" />
 
-      {/* Dark radial scrim centred over text so it reads over the wireframe */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_90%_at_50%_50%,rgba(0,0,0,0.78)_0%,transparent_100%)] pointer-events-none" />
+      {/* Radial scrim so text stays readable over the asteroid scene */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_50%_50%,rgba(6,0,26,0.72)_0%,transparent_100%)] pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-8 pt-24 pb-16 md:pt-28 md:pb-20 text-center">
@@ -89,7 +89,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Bottom fade */}
+      {/* Bottom fade to black */}
       <div className="absolute bottom-0 left-0 right-0 h-32 md:h-40 bg-gradient-to-t from-black to-transparent pointer-events-none" />
     </section>
   )
