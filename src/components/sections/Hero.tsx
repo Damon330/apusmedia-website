@@ -16,7 +16,7 @@ export default function Hero() {
         src="/hero-bg.jpg"
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover object-right"
+        className="absolute inset-0 w-full h-full object-cover object-[78%_25%] md:object-right"
       />
 
       {/* Left-to-right gradient so text stays readable */}
