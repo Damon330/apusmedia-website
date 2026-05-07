@@ -83,7 +83,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-12 md:mt-16 text-white/35 text-xs"
         >
-          {['120+ Brands Served', '★★★★★ Rated', '5+ Years', '100% Satisfaction'].map(item => (
+          {['10+ Brands Served', '★★★★★ Rated', '4 Years Experience', '100% Satisfaction'].map(item => (
             <span key={item}>{item}</span>
           ))}
         </motion.div>
