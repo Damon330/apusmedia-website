@@ -8,6 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        black: '#2C2C2C',
         brand: {
           DEFAULT: '#ffffff',
           light: '#e5e5e5',
@@ -40,7 +41,7 @@ export default {
         '2xl': '24px',
       },
       backgroundImage: {
-        'hero-gradient': 'linear-gradient(180deg, #000000 0%, #0a0a0a 100%)',
+        'hero-gradient': 'linear-gradient(180deg, #2C2C2C 0%, #1a1a1a 100%)',
         'brand-gradient': 'linear-gradient(135deg, #ffffff 0%, #cccccc 100%)',
       },
       animation: {

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --bg: #000000;
+  --bg: #2C2C2C;
   --surface: #111111;
 }
 
@@ -29,7 +29,7 @@ html {
 
 body {
   margin: 0;
-  background-color: #000000;
+  background-color: #2C2C2C;
   color: #ffffff;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -41,9 +41,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #555; }
+::-webkit-scrollbar-track { background: #2C2C2C; }
+::-webkit-scrollbar-thumb { background: #4a4a4a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #666; }
 
 /* Kill browser autofill white flash */
 input:-webkit-autofill,
@@ -51,7 +51,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px #111111 inset !important;
+  -webkit-box-shadow: 0 0 0 1000px #1e1e1e inset !important;
   -webkit-text-fill-color: #ffffff !important;
   caret-color: #ffffff;
 }
@@ -131,7 +131,7 @@ select:-webkit-autofill {
 :root {
   --sky-300: 125, 211, 252;
   --gray-300: 209, 213, 219;
-  --background: 0, 0, 0;
+  --background: 44, 44, 44;
   --foreground: 255, 255, 255;
 }
 
