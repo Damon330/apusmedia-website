@@ -18,8 +18,8 @@ export default {
           light: '#cccccc',
         },
         surface: {
-          DEFAULT: '#111111',
-          soft: '#0a0a0a',
+          DEFAULT: '#1e1e1e',
+          soft: '#2C2C2C',
         },
         ink: {
           DEFAULT: '#ffffff',

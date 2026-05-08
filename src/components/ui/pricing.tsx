@@ -56,7 +56,7 @@ export function PricingSection({ plans, title = "Simple, Transparent Pricing", d
   const [mousePosition, setMousePosition] = useState<{ x: number | null; y: number | null }>({ x: null, y: null })
 
   return (
-    <div ref={containerRef} onMouseMove={e => setMousePosition({ x: e.clientX, y: e.clientY })} onMouseLeave={() => setMousePosition({ x: null, y: null })} className="relative w-full bg-[#050505] py-20 sm:py-24">
+    <div ref={containerRef} onMouseMove={e => setMousePosition({ x: e.clientX, y: e.clientY })} onMouseLeave={() => setMousePosition({ x: null, y: null })} className="relative w-full bg-[#2C2C2C] py-20 sm:py-24">
       <InteractiveStarfield mousePosition={mousePosition} containerRef={containerRef} />
       <div className="relative z-10 container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto text-center space-y-3 mb-14">

@@ -9,7 +9,7 @@ const pillars = [
 
 export default function Mission() {
   return (
-    <section id="about" className="py-20 md:py-28 bg-[#050505]">
+    <section id="about" className="py-20 md:py-28 bg-[#2C2C2C]">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <motion.div

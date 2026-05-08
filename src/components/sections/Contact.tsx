@@ -8,7 +8,7 @@ const services = ['Branding', 'Website Design', 'Running Ads', 'Automation', 'Bu
 
 const inputClass = [
   'w-full rounded-xl px-4 py-3 text-sm transition-all outline-none',
-  'bg-[#111111] border border-white/10 text-white',
+  'bg-[#1e1e1e] border border-white/10 text-white',
   'placeholder:text-white/30',
   'focus:border-white/35 focus:bg-[#161616]',
 ].join(' ')
@@ -57,7 +57,7 @@ export default function Contact({ selectedPlan, onClearPlan }: Props) {
   }
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-[#050505]">
+    <section id="contact" className="py-20 md:py-28 bg-[#2C2C2C]">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20">
 

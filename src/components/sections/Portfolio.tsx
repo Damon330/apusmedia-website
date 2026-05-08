@@ -42,7 +42,7 @@ const projects = [
 
 export default function Portfolio() {
   return (
-    <section id="portfolio" className="py-20 md:py-28 bg-[#050505]">
+    <section id="portfolio" className="py-20 md:py-28 bg-[#2C2C2C]">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

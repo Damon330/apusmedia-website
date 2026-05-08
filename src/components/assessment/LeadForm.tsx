@@ -8,7 +8,7 @@ function validateEmail(email: string) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.t
 
 const inputClass = [
   'w-full rounded-xl px-4 py-3 text-sm transition-all outline-none',
-  'bg-[#111111] border border-white/10 text-white',
+  'bg-[#1e1e1e] border border-white/10 text-white',
   'placeholder:text-white/30',
   'focus:border-white/35 focus:bg-[#161616]',
 ].join(' ')

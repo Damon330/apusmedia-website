@@ -135,7 +135,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 z-40 w-72 bg-[#0a0a0a] border-l border-white/8 flex flex-col md:hidden"
+              className="fixed top-0 right-0 bottom-0 z-40 w-72 bg-[#2C2C2C] border-l border-white/8 flex flex-col md:hidden"
             >
               {/* Drawer header */}
               <div className="h-16 flex items-center px-6 border-b border-white/5">
