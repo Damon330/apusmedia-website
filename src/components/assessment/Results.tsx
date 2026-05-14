@@ -74,7 +74,7 @@ export default function Results({ score, band, firstName }: Props) {
       </div>
 
       <button onClick={() => navigate('/')} className="mt-8 text-white/20 hover:text-white/50 text-xs transition-colors">
-        ← Back to APUS Media
+        ← Back to Aplux Media
       </button>
     </motion.div>
   )

@@ -80,7 +80,7 @@ export default function Contact({ selectedPlan, onClearPlan }: Props) {
 
             <div className="mt-10 space-y-4">
               {[
-                { icon: Mail, label: 'hello@apusmedia.com' },
+                { icon: Mail, label: 'hello@apluxmedia.com' },
                 { icon: Phone, label: '+234 800 000 0000' },
                 { icon: MapPin, label: 'Lagos, Nigeria' },
               ].map(item => (

@@ -18,7 +18,7 @@ export default function Footer() {
               <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-black font-display font-bold text-xs">
                 A
               </div>
-              <span className="font-display font-bold text-white text-base">APUS Media</span>
+              <span className="font-display font-bold text-white text-base">Aplux Media</span>
             </button>
             <p className="text-white/30 text-sm leading-relaxed max-w-xs">
               We bridge the gap between visibility and profitability, helping brands convert influence into real business growth.
@@ -49,14 +49,14 @@ export default function Footer() {
         {/* Big brand name like Arkitek */}
         <div className="border-t border-white/5 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/20 text-xs">© {new Date().getFullYear()} APUS Media · All rights reserved.</p>
+            <p className="text-white/20 text-xs">© {new Date().getFullYear()} Aplux Media · All rights reserved.</p>
             <button onClick={() => navigate('/assessment')} className="text-xs text-white/30 hover:text-white transition-colors">
               Take the Free Assessment →
             </button>
           </div>
           <div className="mt-6 overflow-hidden">
             <p className="font-display font-extrabold text-white/[0.04] text-[clamp(4rem,15vw,12rem)] leading-none tracking-tight select-none text-center">
-              APUS Media
+              Aplux Media
             </p>
           </div>
         </div>

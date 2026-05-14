@@ -56,7 +56,7 @@ export default function Header() {
               <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-black font-display font-bold text-xs">
                 A
               </div>
-              <span className="font-display font-bold text-white text-base">APUS Media</span>
+              <span className="font-display font-bold text-white text-base">Aplux Media</span>
             </button>
 
             {/* Desktop Nav */}

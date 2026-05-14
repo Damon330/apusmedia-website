@@ -12,7 +12,7 @@ export default function AssessmentPage() {
       <header className="relative z-10 px-4 md:px-8 py-5 flex items-center justify-between border-b border-white/5">
         <button onClick={() => navigate('/')} className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-black font-display font-bold text-xs">A</div>
-          <span className="font-display font-bold text-white text-base">APUS Media</span>
+          <span className="font-display font-bold text-white text-base">Aplux Media</span>
         </button>
         <span className="text-white/20 text-xs hidden sm:block">Free Online Visibility Assessment</span>
         <button onClick={() => navigate('/')} className="text-white/25 hover:text-white/60 text-xs transition-colors">← Back to site</button>
@@ -30,7 +30,7 @@ export default function AssessmentPage() {
       </main>
 
       <footer className="relative z-10 py-5 text-center text-white/15 text-xs border-t border-white/5">
-        © {new Date().getFullYear()} APUS Media · Your data is never sold or shared.
+        © {new Date().getFullYear()} Aplux Media · Your data is never sold or shared.
       </footer>
     </div>
   )

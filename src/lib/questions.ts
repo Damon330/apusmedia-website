@@ -131,7 +131,7 @@ export function getBand(score: number): ScoreBand {
     bridge: 'Before you spend a Naira on ads or a website, you need to understand the 3 fundamentals every small business must get right online.',
     cta: 'Book a Free Strategy Call →',
     testimonials: [
-      { q: 'I had zero online presence. After APUS\'s guidance I finally understood what I was missing.', n: 'Adaeze N.', r: 'Bakery Owner, Lagos' },
+      { q: "I had zero online presence. After Aplux's guidance I finally understood what I was missing.", n: 'Adaeze N.', r: 'Bakery Owner, Lagos' },
       { q: 'They didn\'t try to sell me — they educated me. Now I know exactly what to fix first.', n: 'Bola S.', r: 'Tailor & Brand Owner' },
     ],
   }
@@ -159,7 +159,7 @@ export function getBand(score: number): ScoreBand {
     bridge: 'Businesses at your stage benefit most from a tailored strategy. Let\'s map out exactly what your next 90 days should look like to break through.',
     cta: 'Book a Free 20-Minute Strategy Call →',
     testimonials: [
-      { q: 'APUS rebuilt our site and we tripled our quote requests in 3 months.', n: 'Emeka U.', r: 'Interior Design Studio' },
+      { q: 'Aplux rebuilt our site and we tripled our quote requests in 3 months.', n: 'Emeka U.', r: 'Interior Design Studio' },
       { q: 'The strategy session alone was worth more than the last agency we paid.', n: 'Funmi A.', r: 'Skincare Brand Founder' },
     ],
   }
@@ -173,7 +173,7 @@ export function getBand(score: number): ScoreBand {
     bridge: 'Let\'s look at where the biggest scale opportunities are hiding in your business right now.',
     cta: 'Book a Free Strategy Session →',
     testimonials: [
-      { q: 'We thought we\'d plateaued. APUS unlocked a whole new growth lever for us.', n: 'Tunde A.', r: 'E-commerce Founder' },
+      { q: 'We thought we\'d plateaued. Aplux unlocked a whole new growth lever for us.', n: 'Tunde A.', r: 'E-commerce Founder' },
       { q: 'Finally an agency that thinks like an operator, not just a designer.', n: 'Zainab M.', r: 'Consulting Firm CEO' },
     ],
   }
