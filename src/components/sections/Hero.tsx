@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
-import { LiquidButton } from '@/components/ui/liquid-glass-button'
+import GradientButton from '@/components/ui/button-1'
 
 const trustItems = ['10+ Brands Served', '★★★★★ Rated', '4 Years Experience', '100% Satisfaction']
 
@@ -75,9 +75,9 @@ export default function Hero() {
             transition={{ duration: 0.65, delay: 0.24 }}
             className="flex flex-wrap items-center gap-4 mb-12 md:mb-16"
           >
-            <LiquidButton size="lg" onClick={() => navigate('/assessment')}>
+            <GradientButton width="auto" height="52px" onClick={() => navigate('/assessment')}>
               Take the Free Assessment
-            </LiquidButton>
+            </GradientButton>
             <button
               onClick={() => document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })}
               className="flex items-center gap-2 text-white/65 hover:text-white active:text-white text-sm font-medium transition-colors py-2 min-h-[48px]"
