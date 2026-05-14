@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { MetalButton } from '@/components/ui/liquid-glass-button'
+import GradientButton from '@/components/ui/button-1'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
@@ -74,9 +74,9 @@ export default function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden md:block">
-              <MetalButton size="sm" onClick={() => handleNavClick('#contact')}>
+              <GradientButton width="140px" height="40px" onClick={() => handleNavClick('#contact')}>
                 Contact Us
-              </MetalButton>
+              </GradientButton>
             </div>
 
             {/* Mobile hamburger */}
@@ -165,13 +165,14 @@ export default function Header() {
                 transition={{ delay: 0.35, duration: 0.3 }}
                 className="p-6 border-t border-white/5"
               >
-                <MetalButton
-                  size="default"
+                <GradientButton
+                  width="100%"
+                  height="48px"
                   onClick={() => handleNavClick('#contact')}
-                  className="w-full justify-center"
+                  className="w-full"
                 >
                   Contact Us
-                </MetalButton>
+                </GradientButton>
               </motion.div>
             </motion.div>
           </>

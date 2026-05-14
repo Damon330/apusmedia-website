@@ -5,6 +5,31 @@
 :root {
   --bg: #2C2C2C;
   --surface: #111111;
+  --color-background: #2C2C2C;
+  --color-text: #ffffff;
+}
+
+/* Rotating gradient border button */
+@property --r {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.rotatingGradient {
+  background: conic-gradient(
+    from var(--r) at 50% 50%,
+    #ffffff 0deg,
+    rgba(255, 255, 255, 0.08) 80deg,
+    rgba(255, 255, 255, 0.6) 160deg,
+    rgba(255, 255, 255, 0.04) 240deg,
+    #ffffff 360deg
+  );
+  animation: rotateBorder 2.8s linear infinite;
+}
+
+@keyframes rotateBorder {
+  to { --r: 360deg; }
 }
 
 * {
