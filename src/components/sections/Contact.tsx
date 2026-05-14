@@ -81,7 +81,7 @@ export default function Contact({ selectedPlan, onClearPlan }: Props) {
 
             <div className="mt-10 space-y-4">
               {[
-                { icon: Mail, label: 'apluxmediaoffcial@gmail.com' },
+                { icon: Mail, label: 'apluxmediaofficial@gmail.com' },
                 { icon: Phone, label: '+2348135557817' },
                 { icon: MapPin, label: 'Lagos, Nigeria' },
               ].map(item => (
