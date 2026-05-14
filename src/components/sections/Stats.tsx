@@ -20,7 +20,7 @@ function CountUp({ to, prefix = '', suffix = '', start }: { to: number; prefix?:
     }, 20)
     return () => clearInterval(timer)
   }, [start, to])
-  return <span className="font-display font-extrabold text-5xl md:text-7xl text-white">{prefix}{count}{suffix}</span>
+  return <span className="font-display font-extrabold text-5xl md:text-7xl text-neutral-900 dark:text-white">{prefix}{count}{suffix}</span>
 }
 
 export default function Stats() {
@@ -28,7 +28,7 @@ export default function Stats() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section className="py-20 bg-black border-y border-white/5">
+    <section className="py-20 bg-neutral-50 border-y border-neutral-200 dark:bg-[#2C2C2C] dark:border-white/5">
       <div ref={ref} className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-center">
           {stats.map((stat, i) => (
@@ -40,7 +40,7 @@ export default function Stats() {
               transition={{ duration: 0.5, delay: i * 0.12 }}
             >
               <CountUp to={stat.value} suffix={stat.suffix} start={inView} />
-              <p className="text-white/30 text-sm mt-2 font-medium">{stat.label}</p>
+              <p className="text-neutral-400 dark:text-white/30 text-sm mt-2 font-medium">{stat.label}</p>
             </motion.div>
           ))}
         </div>

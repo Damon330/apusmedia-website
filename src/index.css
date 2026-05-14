@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 :root {
+  --bg: #ffffff;
+  --surface: #f5f5f5;
+  --color-background: #ffffff;
+  --color-text: #111111;
+}
+
+.dark {
   --bg: #2C2C2C;
   --surface: #111111;
   --color-background: #2C2C2C;
@@ -16,7 +23,20 @@
   initial-value: 0deg;
 }
 
+/* Light mode: solid charcoal border with bright sweep */
 .rotatingGradient {
+  background: conic-gradient(
+    from var(--r) at 50% 50%,
+    #1a1a1a 0deg,
+    #999999 30deg,
+    #1a1a1a 60deg,
+    #1a1a1a 360deg
+  );
+  animation: rotateBorder 2.8s linear infinite;
+}
+
+/* Dark mode: white rotating border */
+.dark .rotatingGradient {
   background: conic-gradient(
     from var(--r) at 50% 50%,
     #ffffff 0deg,
@@ -25,7 +45,6 @@
     rgba(255, 255, 255, 0.04) 240deg,
     #ffffff 360deg
   );
-  animation: rotateBorder 2.8s linear infinite;
 }
 
 @keyframes rotateBorder {
@@ -54,11 +73,12 @@ html {
 
 body {
   margin: 0;
-  background-color: #2C2C2C;
-  color: #ffffff;
+  background-color: var(--color-background);
+  color: var(--color-text);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -66,7 +86,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #2C2C2C; }
+::-webkit-scrollbar-track { background: var(--color-background); }
 ::-webkit-scrollbar-thumb { background: #4a4a4a; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #666; }
 
@@ -156,6 +176,11 @@ select:-webkit-autofill {
 :root {
   --sky-300: 125, 211, 252;
   --gray-300: 209, 213, 219;
+  --background: 255, 255, 255;
+  --foreground: 17, 17, 17;
+}
+
+.dark {
   --background: 44, 44, 44;
   --foreground: 255, 255, 255;
 }

@@ -33,7 +33,7 @@ const platforms = [
 
 export default function Platforms() {
   return (
-    <section className="py-20 md:py-28 bg-black">
+    <section className="py-20 md:py-28 bg-neutral-50 dark:bg-[#2C2C2C]">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -42,11 +42,11 @@ export default function Platforms() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="text-white/25 text-xs font-semibold uppercase tracking-widest">Tech Stack</span>
-          <h2 className="font-display font-bold text-white text-3xl md:text-5xl mt-3">
+          <span className="text-neutral-400 dark:text-white/25 text-xs font-semibold uppercase tracking-widest">Tech Stack</span>
+          <h2 className="font-display font-bold text-neutral-900 dark:text-white text-3xl md:text-5xl mt-3">
             We Build With the Best
           </h2>
-          <p className="text-white/30 text-lg mt-3 max-w-xl mx-auto">
+          <p className="text-neutral-500 dark:text-white/30 text-lg mt-3 max-w-xl mx-auto">
             We pick the right platform for your business — not the easiest one for us.
           </p>
         </motion.div>
@@ -59,18 +59,18 @@ export default function Platforms() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.12 }}
-              className="group bg-white/[0.03] border border-white/6 rounded-2xl p-5 md:p-6 hover:border-white/12 hover:bg-white/[0.05] active:border-white/12 transition-all duration-300"
+              className="group bg-white border border-neutral-200 dark:bg-white/[0.03] dark:border-white/6 rounded-2xl p-5 md:p-6 hover:border-neutral-300 hover:bg-neutral-50 dark:hover:border-white/12 dark:hover:bg-white/[0.05] active:border-neutral-300 dark:active:border-white/12 transition-all duration-300"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-9 h-9 rounded-xl bg-white/6 border border-white/8 flex items-center justify-center">
-                  <platform.icon size={16} className="text-white/60" />
+                <div className="w-9 h-9 rounded-xl bg-neutral-100 border border-neutral-200 dark:bg-white/6 dark:border-white/8 flex items-center justify-center">
+                  <platform.icon size={16} className="text-neutral-500 dark:text-white/60" />
                 </div>
-                <h3 className="font-display font-bold text-white text-lg">{platform.name}</h3>
+                <h3 className="font-display font-bold text-neutral-900 dark:text-white text-lg">{platform.name}</h3>
               </div>
-              <p className="text-white/35 text-sm leading-relaxed mb-5">{platform.description}</p>
+              <p className="text-neutral-500 dark:text-white/35 text-sm leading-relaxed mb-5">{platform.description}</p>
               <div className="grid grid-cols-2 gap-2">
                 {platform.samples.map(sample => (
-                  <div key={sample.label} className="relative overflow-hidden rounded-xl aspect-video bg-white/5">
+                  <div key={sample.label} className="relative overflow-hidden rounded-xl aspect-video bg-neutral-200 dark:bg-white/5">
                     <img src={sample.image} alt={sample.label} className="w-full h-full object-cover opacity-50 grayscale group-hover:opacity-70 transition-opacity" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-2">
                       <span className="text-white/60 text-xs">{sample.label}</span>

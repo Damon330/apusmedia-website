@@ -42,7 +42,7 @@ const projects = [
 
 export default function Portfolio() {
   return (
-    <section id="portfolio" className="py-20 md:py-28 bg-[#2C2C2C]">
+    <section id="portfolio" className="py-20 md:py-28 bg-white dark:bg-[#2C2C2C]">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -52,10 +52,10 @@ export default function Portfolio() {
           className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-12 gap-3"
         >
           <div>
-            <span className="text-white/25 text-xs font-semibold uppercase tracking-widest">Portfolio</span>
-            <h2 className="font-display font-bold text-white text-3xl md:text-5xl mt-3">Our Projects</h2>
+            <span className="text-neutral-400 dark:text-white/25 text-xs font-semibold uppercase tracking-widest">Portfolio</span>
+            <h2 className="font-display font-bold text-neutral-900 dark:text-white text-3xl md:text-5xl mt-3">Our Projects</h2>
           </div>
-          <p className="text-white/30 text-sm max-w-xs">See some of the work we've done for our clients.</p>
+          <p className="text-neutral-400 dark:text-white/30 text-sm max-w-xs">See some of the work we've done for our clients.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -69,7 +69,7 @@ export default function Portfolio() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
-              className="group relative overflow-hidden rounded-xl bg-white/5 aspect-[4/3] cursor-pointer block"
+              className="group relative overflow-hidden rounded-xl bg-neutral-100 dark:bg-white/5 aspect-[4/3] cursor-pointer block"
             >
               <img
                 src={project.image}
@@ -78,10 +78,8 @@ export default function Portfolio() {
                 loading="lazy"
               />
 
-              {/* Always-visible bottom gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
-              {/* Info — always visible */}
               <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-5">
                 <div className="flex items-end justify-between gap-2">
                   <div>
@@ -107,7 +105,7 @@ export default function Portfolio() {
           viewport={{ once: true }}
           className="text-center mt-8"
         >
-          <button className="text-white/20 hover:text-white/50 active:text-white/50 text-xs transition-colors border border-white/8 hover:border-white/15 px-5 py-2.5 rounded-full min-h-[40px]">
+          <button className="text-neutral-400 hover:text-neutral-600 dark:text-white/20 dark:hover:text-white/50 active:text-neutral-600 dark:active:text-white/50 text-xs transition-colors border border-neutral-200 hover:border-neutral-300 dark:border-white/8 dark:hover:border-white/15 px-5 py-2.5 rounded-full min-h-[40px]">
             View all projects →
           </button>
         </motion.div>

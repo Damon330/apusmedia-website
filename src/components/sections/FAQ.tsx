@@ -14,7 +14,7 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <section className="py-20 md:py-28 bg-black">
+    <section className="py-20 md:py-28 bg-neutral-50 dark:bg-[#2C2C2C]">
       <div className="max-w-4xl mx-auto px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -23,8 +23,8 @@ export default function FAQ() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="text-white/25 text-xs font-semibold uppercase tracking-widest">FAQ</span>
-          <h2 className="font-display font-bold text-white text-3xl md:text-5xl mt-3">FAQs</h2>
+          <span className="text-neutral-400 dark:text-white/25 text-xs font-semibold uppercase tracking-widest">FAQ</span>
+          <h2 className="font-display font-bold text-neutral-900 dark:text-white text-3xl md:text-5xl mt-3">FAQs</h2>
         </motion.div>
 
         <motion.div

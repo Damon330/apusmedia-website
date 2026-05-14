@@ -52,9 +52,9 @@ export default function Hero() {
             transition={{ duration: 0.65, delay: 0.08 }}
             className="font-display font-extrabold text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.02] tracking-tight mb-6"
           >
-            Creating Digital
+            Stop Getting
             <br />
-            Masterpieces
+            Outmarketed.
           </motion.h1>
 
           {/* Sub */}
@@ -64,8 +64,8 @@ export default function Hero() {
             transition={{ duration: 0.65, delay: 0.16 }}
             className="text-white/60 text-base md:text-lg leading-relaxed mb-10 md:mb-12"
           >
-            We bridge the gap between visibility and profitability — helping brands
-            convert influence into real, measurable business growth.
+            We help businesses dominate online with conversion-driven branding,
+            high-impact websites, and growth strategies that generate real sales.
           </motion.p>
 
           {/* CTAs */}
