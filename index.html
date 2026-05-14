@@ -5,7 +5,13 @@
     <script>
       (function() {
         var saved = localStorage.getItem('aplux-theme');
-        var isDark = saved ? saved === 'dark' : true;
+        var isDark;
+        if (saved) {
+          isDark = saved === 'dark';
+        } else {
+          var h = new Date().getHours();
+          isDark = h >= 19 || h < 7;
+        }
         if (isDark) document.documentElement.classList.add('dark');
       })();
     </script>
