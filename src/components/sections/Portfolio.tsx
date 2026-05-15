@@ -18,7 +18,7 @@ const projects = [
     title: 'Dawn — Shopify Theme',
     tags: ['Web Design', 'Shopify'],
     image: '/portfolio/dawn.jpg',
-    href: 'https://powertecproducts.com',
+    href: 'https://eleondirect.com/',
   },
   {
     title: 'Impulse — Shopify Theme',
