@@ -18,13 +18,13 @@ const projects = [
     title: 'Dawn — Shopify Theme',
     tags: ['Web Design', 'Shopify'],
     image: '/portfolio/dawn.jpg',
-    href: 'https://themes.shopify.com/themes/dawn/presets/dawn',
+    href: 'https://powertecproducts.com',
   },
   {
     title: 'Impulse — Shopify Theme',
     tags: ['Web Design', 'Shopify'],
     image: '/portfolio/impulse.jpg',
-    href: 'https://themes.shopify.com/themes/impulse/presets/impulse',
+    href: 'https://powertecproducts.com/',
   },
   {
     title: 'Yanka',

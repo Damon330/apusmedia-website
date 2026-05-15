@@ -55,18 +55,33 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <button onClick={() => { setMenuOpen(false); navigate('/') }} className="flex items-center gap-2.5 z-50 relative">
-              <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center text-black font-display font-bold text-xs flex-shrink-0 border border-neutral-200 dark:border-transparent">
-                A
-              </div>
-              <span className={cn(
-                'font-display font-bold text-base transition-colors',
-                scrolled || menuOpen
-                  ? 'text-neutral-900 dark:text-white'
-                  : 'text-white'
-              )}>
-                Aplux Media
-              </span>
+            <button
+              onClick={() => { setMenuOpen(false); navigate('/') }}
+              className="z-50 relative flex-shrink-0"
+              aria-label="Aplux Media — go to homepage"
+            >
+              <svg
+                width="120"
+                height="40"
+                viewBox="0 0 1200 400"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <circle cx="140" cy="200" r="110" fill={!(scrolled || menuOpen) || isDark ? 'white' : '#111111'} />
+                <path d="M140 115 L75 275 L115 275 L140 225 L165 275 L205 275 Z" fill={!(scrolled || menuOpen) || isDark ? 'black' : 'white'} />
+                <path d="M140 175 L120 220 L155 220 Z" fill={!(scrolled || menuOpen) || isDark ? 'white' : '#111111'} />
+                <text
+                  x="290"
+                  y="245"
+                  fontFamily="Arial, Helvetica, sans-serif"
+                  fontSize="140"
+                  fontWeight="700"
+                  fill={!(scrolled || menuOpen) || isDark ? 'white' : '#111111'}
+                >
+                  plux media
+                </text>
+              </svg>
             </button>
 
             {/* Desktop Nav */}
