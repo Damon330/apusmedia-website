@@ -13,7 +13,7 @@ interface TeamMember {
 const team: TeamMember[] = [
   { id: '1', name: 'Adeusi Adedayo', role: 'Growth, Brand & Ads Specialist', image: '/team/adedayo.jpg' },
   { id: '2', name: 'Adeusi Adedamola', role: 'Head of Operations, Business Strategist & Backend Engineer', image: '/team/adedamola.jpg' },
-  { id: '3', name: 'Oluyemi Henry', role: 'Finance, Marketer & Strategist', image: '/team/henry.jpg' },
+  { id: '3', name: 'Oluyemi Henry', role: 'AI Vibe Coder & Automation Expert', image: '/team/henry.jpg' },
   { id: '4', name: 'Atteh Moses', role: 'Full Stack Developer', image: '/team/moses.jpg' },
 ]
 
