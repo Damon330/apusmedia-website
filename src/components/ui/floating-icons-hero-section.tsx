@@ -60,7 +60,6 @@ const Icon = ({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [x, y, mouseX, mouseY]);
 
-  // Stable per-icon duration derived from id so it never changes between renders
   const floatDuration = 5 + (iconData.id % 5);
 
   return (
@@ -73,7 +72,7 @@ const Icon = ({
       className={cn('absolute', iconData.className)}
     >
       <motion.div
-        className="flex items-center justify-center w-16 h-16 md:w-20 md:h-20 p-3 rounded-3xl shadow-2xl bg-white/5 backdrop-blur-md border border-white/10"
+        className="flex items-center justify-center w-14 h-14 md:w-20 md:h-20 p-3 rounded-2xl md:rounded-3xl shadow-xl bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10"
         animate={{
           y: [0, -8, 0, 8, 0],
           x: [0, 6, 0, -6, 0],
@@ -86,7 +85,7 @@ const Icon = ({
           ease: 'easeInOut',
         }}
       >
-        <iconData.icon className="w-8 h-8 md:w-10 md:h-10 text-white/70" />
+        <iconData.icon className="w-7 h-7 md:w-10 md:h-10 text-black/50 dark:text-white/70" />
       </motion.div>
     </motion.div>
   );
@@ -109,7 +108,7 @@ const FloatingIconsHero = React.forwardRef<
       ref={ref}
       onMouseMove={handleMouseMove}
       className={cn(
-        'relative w-full h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-black',
+        'relative w-full h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-white dark:bg-black',
         className
       )}
       {...props}
@@ -120,12 +119,12 @@ const FloatingIconsHero = React.forwardRef<
         ))}
       </div>
 
-      <div className="relative z-10 text-center px-4">
+      <div className="relative z-10 text-center px-6">
         <motion.h1
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.1 }}
-          className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.02] tracking-tight text-white whitespace-pre-line"
+          className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.02] tracking-tight text-neutral-900 dark:text-white whitespace-pre-line"
         >
           {title}
         </motion.h1>
@@ -133,7 +132,7 @@ const FloatingIconsHero = React.forwardRef<
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.22 }}
-          className="mt-6 max-w-xl mx-auto text-base md:text-lg text-white/55 leading-relaxed"
+          className="mt-6 max-w-xl mx-auto text-base md:text-lg text-neutral-500 dark:text-white/55 leading-relaxed"
         >
           {subtitle}
         </motion.p>
@@ -143,7 +142,11 @@ const FloatingIconsHero = React.forwardRef<
           transition={{ duration: 0.65, delay: 0.34 }}
           className="mt-10"
         >
-          <Button asChild size="lg" className="px-8 py-6 text-base font-semibold rounded-xl">
+          <Button
+            asChild
+            size="lg"
+            className="px-8 py-6 text-base font-semibold rounded-xl bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-white/90"
+          >
             <a href={ctaHref}>{ctaText}</a>
           </Button>
         </motion.div>
