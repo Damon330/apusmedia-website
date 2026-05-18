@@ -31,8 +31,8 @@ const heroIcons: FloatingIconsHeroProps['icons'] = [
 export default function Hero() {
   return (
     <FloatingIconsHero
-      title={"Stop Getting\nOutmarketed."}
-      subtitle="We help businesses dominate online with conversion-driven branding, high-impact websites, and growth strategies that generate real sales."
+      title={"We Build Brands\nThat Sell"}
+      subtitle="Creative branding, websites, ads, and automation in one system."
       ctaText="Take the Free Assessment"
       ctaHref="/assessment"
       icons={heroIcons}

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Hero from '@/components/sections/Hero'
 import Services from '@/components/sections/Services'
 import Mission from '@/components/sections/Mission'
@@ -10,21 +9,7 @@ import Team from '@/components/sections/Team'
 import FAQ from '@/components/sections/FAQ'
 import Contact from '@/components/sections/Contact'
 
-export interface SelectedPlan {
-  name: string
-  price: string
-}
-
 export default function Home() {
-  const [selectedPlan, setSelectedPlan] = useState<SelectedPlan | null>(null)
-
-  const handleSelectPlan = (plan: SelectedPlan) => {
-    setSelectedPlan(plan)
-    setTimeout(() => {
-      document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
-    }, 80)
-  }
-
   return (
     <>
       <Hero />
@@ -33,10 +18,10 @@ export default function Home() {
       <Stats />
       <Portfolio />
       <Platforms />
-      <PricingSection onSelectPlan={handleSelectPlan} />
+      <PricingSection />
       <Team />
       <FAQ />
-      <Contact selectedPlan={selectedPlan} onClearPlan={() => setSelectedPlan(null)} />
+      <Contact />
     </>
   )
 }
