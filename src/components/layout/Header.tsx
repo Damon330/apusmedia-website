@@ -96,13 +96,13 @@ export default function Header() {
                 onClick={toggle}
                 aria-label="Toggle colour mode"
                 className={cn(
-                  'w-9 h-9 flex items-center justify-center rounded-xl transition-colors',
+                  'hidden dark:flex w-9 h-9 items-center justify-center rounded-xl transition-colors',
                   scrolled
-                    ? 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-white/40 dark:hover:text-white dark:hover:bg-white/8'
+                    ? 'dark:text-white/40 dark:hover:text-white dark:hover:bg-white/8'
                     : 'text-white/60 hover:text-white hover:bg-white/8'
                 )}
               >
-                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+                <Sun size={16} />
               </button>
               <GradientButton width="140px" height="40px" onClick={() => handleNavClick('#contact')}>
                 Contact Us
@@ -115,13 +115,13 @@ export default function Header() {
                 onClick={toggle}
                 aria-label="Toggle colour mode"
                 className={cn(
-                  'w-10 h-10 flex items-center justify-center transition-colors',
+                  'hidden dark:flex w-10 h-10 items-center justify-center transition-colors',
                   scrolled || menuOpen
-                    ? 'text-neutral-600 dark:text-white/60'
+                    ? 'dark:text-white/60'
                     : 'text-white/70'
                 )}
               >
-                {isDark ? <Sun size={16} /> : <Moon size={16} />}
+                <Sun size={16} />
               </button>
               <button
                 className={cn(
@@ -213,10 +213,10 @@ export default function Header() {
               </GradientButton>
               <button
                 onClick={toggle}
-                className="mt-4 w-full flex items-center justify-center gap-2 py-3 text-sm text-neutral-500 dark:text-white/30 hover:text-neutral-700 dark:hover:text-white/60 transition-colors"
+                className="hidden dark:flex mt-4 w-full items-center justify-center gap-2 py-3 text-sm dark:text-white/30 dark:hover:text-white/60 transition-colors"
               >
-                {isDark ? <Sun size={14} /> : <Moon size={14} />}
-                Switch to {isDark ? 'light' : 'dark'} mode
+                <Sun size={14} />
+                Switch to light mode
               </button>
             </motion.div>
           </motion.div>
