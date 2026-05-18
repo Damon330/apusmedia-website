@@ -1,0 +1,6 @@
+<svg width="1200" height="400" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="140" cy="200" r="110" fill="black"/>
+  <path d="M140 115 L75 275 L115 275 L140 225 L165 275 L205 275 Z" fill="white"/>
+  <path d="M140 175 L120 220 L155 220 Z" fill="black"/>
+  <text x="290" y="245" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="140" font-weight="900" fill="black">plux media</text>
+</svg>

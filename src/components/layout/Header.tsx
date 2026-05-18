@@ -60,28 +60,16 @@ export default function Header() {
               className="z-50 relative flex-shrink-0"
               aria-label="Aplux Media — go to homepage"
             >
-              <svg
-                width="120"
-                height="40"
-                viewBox="0 0 1200 400"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <circle cx="140" cy="200" r="110" fill={!(scrolled || menuOpen) || isDark ? 'white' : '#111111'} />
-                <path d="M140 115 L75 275 L115 275 L140 225 L165 275 L205 275 Z" fill={!(scrolled || menuOpen) || isDark ? 'black' : 'white'} />
-                <path d="M140 175 L120 220 L155 220 Z" fill={!(scrolled || menuOpen) || isDark ? 'white' : '#111111'} />
-                <text
-                  x="290"
-                  y="245"
-                  fontFamily="Arial, Helvetica, sans-serif"
-                  fontSize="140"
-                  fontWeight="700"
-                  fill={!(scrolled || menuOpen) || isDark ? 'white' : '#111111'}
-                >
-                  plux media
-                </text>
-              </svg>
+              <img
+                src="/logo.svg"
+                alt="Aplux Media"
+                width={120}
+                height={40}
+                className={cn(
+                  'h-8 w-auto transition-[filter] duration-300',
+                  !(scrolled || menuOpen) || isDark ? 'invert' : ''
+                )}
+              />
             </button>
 
             {/* Desktop Nav */}
