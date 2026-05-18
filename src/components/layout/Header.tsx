@@ -96,13 +96,13 @@ export default function Header() {
                 onClick={toggle}
                 aria-label="Toggle colour mode"
                 className={cn(
-                  'hidden dark:flex w-9 h-9 items-center justify-center rounded-xl transition-colors',
+                  'flex w-9 h-9 items-center justify-center rounded-xl transition-colors',
                   scrolled
-                    ? 'dark:text-white/40 dark:hover:text-white dark:hover:bg-white/8'
-                    : 'text-white/60 hover:text-white hover:bg-white/8'
+                    ? 'text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100 dark:text-white/40 dark:hover:text-white dark:hover:bg-white/8'
+                    : 'text-white/60 hover:text-white hover:bg-white/10'
                 )}
               >
-                <Sun size={16} />
+                {isDark ? <Sun size={16} /> : <Moon size={16} />}
               </button>
               <GradientButton width="140px" height="40px" onClick={() => handleNavClick('#contact')}>
                 Contact Us
@@ -115,13 +115,13 @@ export default function Header() {
                 onClick={toggle}
                 aria-label="Toggle colour mode"
                 className={cn(
-                  'hidden dark:flex w-10 h-10 items-center justify-center transition-colors',
+                  'flex w-10 h-10 items-center justify-center transition-colors',
                   scrolled || menuOpen
-                    ? 'dark:text-white/60'
+                    ? 'text-neutral-600 dark:text-white/60'
                     : 'text-white/70'
                 )}
               >
-                <Sun size={16} />
+                {isDark ? <Sun size={16} /> : <Moon size={16} />}
               </button>
               <button
                 className={cn(
@@ -171,7 +171,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed inset-0 top-16 z-40 bg-white dark:bg-[#1a1a1a] flex flex-col md:hidden overflow-y-auto"
+            className="fixed inset-0 top-16 z-40 bg-neutral-50 dark:bg-[#1a1a1a] shadow-xl flex flex-col md:hidden overflow-y-auto"
           >
             {/* Nav links */}
             <nav className="flex-1 px-6 pt-4 pb-6">
@@ -182,7 +182,7 @@ export default function Header() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 + 0.06, duration: 0.22 }}
                   onClick={() => handleNavClick(link.href)}
-                  className="w-full text-left py-5 border-b border-neutral-100 dark:border-white/5 last:border-0 group"
+                  className="w-full text-left py-5 border-b border-neutral-200 dark:border-white/5 last:border-0 group"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-display font-bold text-2xl text-neutral-800 group-hover:text-neutral-900 dark:text-white/80 dark:group-hover:text-white transition-colors">
@@ -201,7 +201,7 @@ export default function Header() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.32, duration: 0.22 }}
-              className="px-6 py-6 border-t border-neutral-100 dark:border-white/5"
+              className="px-6 py-6 border-t border-neutral-200 dark:border-white/5"
             >
               <GradientButton
                 width="100%"
@@ -213,10 +213,10 @@ export default function Header() {
               </GradientButton>
               <button
                 onClick={toggle}
-                className="hidden dark:flex mt-4 w-full items-center justify-center gap-2 py-3 text-sm dark:text-white/30 dark:hover:text-white/60 transition-colors"
+                className="flex mt-4 w-full items-center justify-center gap-2 py-3 text-sm text-neutral-400 hover:text-neutral-700 dark:text-white/30 dark:hover:text-white/60 transition-colors"
               >
-                <Sun size={14} />
-                Switch to light mode
+                {isDark ? <Sun size={14} /> : <Moon size={14} />}
+                Switch to {isDark ? 'light' : 'dark'} mode
               </button>
             </motion.div>
           </motion.div>
