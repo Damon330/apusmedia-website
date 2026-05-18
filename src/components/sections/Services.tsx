@@ -42,8 +42,8 @@ export default function Services() {
               variants={cardVariants}
               className="group bg-black/[0.03] border border-black/8 dark:bg-white/[0.03] dark:border-white/6 rounded-2xl p-5 md:p-7 hover:border-black/15 hover:bg-black/[0.05] dark:hover:border-white/15 dark:hover:bg-white/[0.05] transition-all duration-300 cursor-default"
             >
-              <div className="w-10 h-10 rounded-xl bg-black/6 border border-black/8 dark:bg-white/6 dark:border-white/8 flex items-center justify-center mb-5 group-hover:bg-black/10 dark:group-hover:bg-white/10 transition-colors">
-                <service.icon size={18} className="text-neutral-500 dark:text-white/60" />
+              <div className="w-10 h-10 rounded-xl bg-black/6 border border-black/8 dark:bg-white/6 dark:border-white/8 flex items-center justify-center mb-5 group-hover:bg-[#C2FF00]/15 group-hover:border-[#C2FF00]/30 transition-colors">
+                <service.icon size={18} className="text-neutral-500 dark:text-white/60 group-hover:text-[#C2FF00]" />
               </div>
               <h3 className="font-display font-semibold text-neutral-900 dark:text-white text-lg mb-2">{service.title}</h3>
               <p className="text-neutral-500 dark:text-white/35 text-sm leading-relaxed">{service.description}</p>

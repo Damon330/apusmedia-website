@@ -27,6 +27,7 @@ export default {
         },
         muted: '#666666',
         line: 'rgba(255,255,255,0.08)',
+        lime: '#C2FF00',
         success: '#16A37B',
         warning: '#F2B705',
         danger: '#E5484D',

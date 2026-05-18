@@ -78,7 +78,7 @@ function MemberRow({
           className={cn(
             'h-2.5 rounded-full flex-shrink-0 transition-all duration-300',
             isActive
-              ? 'w-5 bg-neutral-900 dark:bg-white'
+              ? 'w-5 bg-[#C2FF00]'
               : 'w-2.5 bg-neutral-900/20 dark:bg-white/20',
           )}
         />

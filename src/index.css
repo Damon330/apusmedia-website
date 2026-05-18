@@ -23,26 +23,29 @@
   initial-value: 0deg;
 }
 
-/* Light mode: solid charcoal border with bright sweep */
+/* Light mode: charcoal border with lime flash */
 .rotatingGradient {
   background: conic-gradient(
     from var(--r) at 50% 50%,
     #1a1a1a 0deg,
-    #999999 30deg,
+    #999999 20deg,
+    #C2FF00 40deg,
     #1a1a1a 60deg,
     #1a1a1a 360deg
   );
   animation: rotateBorder 2.8s linear infinite;
 }
 
-/* Dark mode: white rotating border */
+/* Dark mode: white border with lime flash */
 .dark .rotatingGradient {
   background: conic-gradient(
     from var(--r) at 50% 50%,
     #ffffff 0deg,
-    rgba(255, 255, 255, 0.08) 80deg,
-    rgba(255, 255, 255, 0.6) 160deg,
-    rgba(255, 255, 255, 0.04) 240deg,
+    rgba(255, 255, 255, 0.08) 60deg,
+    #C2FF00 120deg,
+    rgba(255, 255, 255, 0.08) 180deg,
+    rgba(255, 255, 255, 0.6) 240deg,
+    rgba(255, 255, 255, 0.04) 300deg,
     #ffffff 360deg
   );
 }
